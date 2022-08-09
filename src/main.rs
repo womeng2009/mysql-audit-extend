@@ -8,5 +8,5 @@ mod tasks;
 fn main() {
     // let username = libc_util::get_current_user();
     // daemon_util::daemonize(tasks::start_backstage_task, username);
-    init_crontab().expect("初始化任务失败");
+    init_crontab();
 }

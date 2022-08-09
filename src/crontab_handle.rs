@@ -18,11 +18,9 @@ fn build_task() -> Result<Task, TaskError> {
         .spawn_routine(body)
 }
 
-pub fn init_crontab() -> Result<()> {
+pub fn init_crontab(){
     println!("初始化定时任务");
     let delay_timer = DelayTimerBuilder::default().build();
     delay_timer.insert_task(build_task().unwrap()).unwrap();
     delay_timer.stop_delay_timer().unwrap();
-
-    Ok(())
 }
