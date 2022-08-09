@@ -8,7 +8,7 @@ pub fn daemonize<T: FnOnce()>(task: T, username: &str, pkg_name: &str, author_na
     base_path.push_str(author_name);
     base_path.push_str("/");
     base_path.push_str(pkg_name);
-    fs::create_dir_all(base_path).unwrap();
+    fs::create_dir_all(base_path.as_str()).unwrap();
     let stdout = File::create(base_path.as_str().to_owned() + "/mysql-audit-extend.log").unwrap();
     let stderr = File::create(base_path.as_str().to_owned() + "/mysql-audit-extend.error").unwrap();
 
