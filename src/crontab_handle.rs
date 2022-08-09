@@ -15,7 +15,7 @@ fn build_task() -> Result<Task, TaskError> {
 
     //sec   min   hour      day of month    month   day of week     year
     task_builder
-        .set_frequency_repeated_by_cron_str("0 10-40 17 * * * *")
+        .set_frequency_repeated_by_cron_str("0 10-40 18 * * * *")
         .set_task_id(1)
         .set_maximum_running_time(5)
         .spawn_async_routine(body)
