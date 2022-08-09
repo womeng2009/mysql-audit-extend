@@ -9,7 +9,7 @@ fn build_task() -> Result<Task, TaskError> {
     let body = move || {
         let name_ref = name.clone();
         async move {
-            println!("create {} task success, id[{}], time:{}", name, id, SystemTime::now().elapsed().unwrap().as_secs());
+            println!("create {} task success, id[{}], time:{}", name_ref, id, SystemTime::now().elapsed().unwrap().as_secs());
         }
     };
 
