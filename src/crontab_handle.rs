@@ -22,6 +22,15 @@ fn build_task() -> Result<Task, TaskError> {
 pub fn init_crontab(){
     println!("初始化定时任务");
     let delay_timer = DelayTimerBuilder::default().build();
-    delay_timer.insert_task(build_task().unwrap()).unwrap();
-    delay_timer.stop_delay_timer().unwrap();
+    let task_instance_chain = delay_timer.insert_task(build_task().unwrap()).unwrap();
+    let task_instance = task_instance_chain.next_with_wait()?;
+
+    // Cancel running task instances.
+    task_instance.cancel_with_wait().expect("取消执行的任务失败");
+
+    // Remove task which id is 1.
+    delay_timer.remove_task(1).expect("移除任务失败");
+
+    // No new tasks are accepted; running tasks are not affected.
+    delay_timer.stop_delay_timer().expect("停止接收新任务失败");
 }
