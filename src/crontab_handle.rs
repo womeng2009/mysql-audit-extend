@@ -7,18 +7,15 @@ fn build_task() -> Result<Task, TaskError> {
     let mut task_builder = TaskBuilder::default();
 
     let body = move || {
-        let name_ref = name.clone();
-        async move {
-            println!("create {} task success, id[{}], time:{}", name_ref, id, SystemTime::now().elapsed().unwrap().as_secs());
-        }
+        println!("create {} task success, id[{}], time:{}", name, id, SystemTime::now().elapsed().unwrap().as_secs());
     };
 
     //sec   min   hour      day of month    month   day of week     year
     task_builder
         .set_frequency_repeated_by_cron_str("0 10-40 18 * * * *")
         .set_task_id(1)
-        .set_maximum_running_time(5)
-        .spawn_async_routine(body)
+        .set_maximum_running_time(30)
+        .spawn_routine(body)
 }
 
 pub fn init_crontab() {
@@ -27,6 +24,4 @@ pub fn init_crontab() {
     let task_instance_chain = delay_timer.insert_task(build_task().unwrap()).unwrap();
     let task_instance = task_instance_chain.next_with_wait().unwrap();
     println!("task state:{}", task_instance.get_state());
-    // 停止接收新任务
-    delay_timer.stop_delay_timer().unwrap();
 }
