@@ -28,5 +28,5 @@ pub fn init_crontab(){
     // Cancel running task instances.
     println!("state:{}", task_instance.get_state());
     // No new tasks are accepted; running tasks are not affected.
-    delay_timer.stop_delay_timer().expect("停止接收新任务失败");
+    // delay_timer.stop_delay_timer().expect("停止接收新任务失败");
 }
