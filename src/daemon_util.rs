@@ -1,6 +1,6 @@
+use daemonize::Daemonize;
 use std::fs;
 use std::fs::File;
-use daemonize::Daemonize;
 
 pub fn daemonize<T: FnOnce()>(task: T, username: String) {
     let base_path = "/tmp/seeker/mglog";
@@ -22,7 +22,7 @@ pub fn daemonize<T: FnOnce()>(task: T, username: String) {
     match daemonize.start() {
         Ok(_) => {
             task();
-        },
+        }
         Err(e) => eprintln!("Error, {}", e),
     }
 }

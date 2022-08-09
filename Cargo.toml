@@ -7,4 +7,5 @@ edition = "2021"
 
 [dependencies]
 daemonize = "0.4.1"
+delay_timer = "0.11.3"
 users = "0.11.0"
