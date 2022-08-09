@@ -1,6 +1,5 @@
 use std::time::Duration;
 use rcron::{Job, JobScheduler};
-use crate::crontab_handle::init_crontab;
 
 mod daemon_util;
 mod libc_util;
