@@ -21,7 +21,5 @@ fn build_task() -> Result<Task, TaskError> {
 pub fn init_crontab() {
     println!("初始化定时任务");
     let delay_timer = DelayTimerBuilder::default().build();
-    let task_instance_chain = delay_timer.insert_task(build_task().unwrap()).unwrap();
-    let task_instance = task_instance_chain.next_with_wait().unwrap();
-    println!("task state:{}", task_instance.get_state());
+    delay_timer.insert_task(build_task().unwrap()).unwrap();
 }
