@@ -7,7 +7,9 @@ fn build_task() -> Result<Task, TaskError> {
     let mut task_builder = TaskBuilder::default();
 
     let body = move || {
-        println!("create {} task success, id[{}], time:{}", name, id, SystemTime::now().elapsed().unwrap().as_secs());
+        async move {
+            println!("create {} task success, id[{}], time:{}", name, id, SystemTime::now().elapsed().unwrap().as_secs());
+        }
     };
 
     //sec   min   hour      day of month    month   day of week     year
