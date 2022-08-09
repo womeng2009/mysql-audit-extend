@@ -1,6 +1,6 @@
 use std::borrow::BorrowMut;
 use std::thread::sleep;
-use std::time::{Duration, SystemTime};
+use std::time::Duration;
 use rcron::{Job, JobScheduler};
 
 fn mysql_audit_log_rotate(sched: &mut JobScheduler) {
