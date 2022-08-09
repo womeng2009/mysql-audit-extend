@@ -23,7 +23,9 @@ fn build_task() -> Result<Task, TaskError> {
 
 pub fn init_crontab() {
     let delay_timer = DelayTimerBuilder::default().build();
-    delay_timer.insert_task(build_task().unwrap()).unwrap();
+    let task_instance_chain = delay_timer.insert_task(build_task().unwrap()).unwrap();
+    let task_instance = task_instance_chain.next_with_async_wait().await.unwrap();
+    println!("task state:{}", task_instance.get_state());
     // 停止接收新任务
     delay_timer.stop_delay_timer().unwrap();
 }
