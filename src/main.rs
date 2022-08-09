@@ -22,6 +22,6 @@ fn main() {
     loop {
         sched.tick();
 
-        std::thread::sleep(Duration::from_millis(500));
+        println!("循环等待中");
     }
 }
