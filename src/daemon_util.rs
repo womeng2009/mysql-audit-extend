@@ -2,8 +2,12 @@ use daemonize::Daemonize;
 use std::fs;
 use std::fs::File;
 
-pub fn daemonize<T: FnOnce()>(task: T, username: String) {
-    let base_path = "/tmp/seeker/mysql-audit-extend";
+pub fn daemonize<T: FnOnce()>(task: T, username: &str, pkg_name: &str, author_name: &str) {
+    let mut base_path = String::new();
+    base_path.push_str("/tmp/");
+    base_path.push_str(author_name);
+    base_path.push_str("/");
+    base_path.push_str(pkg_name);
     fs::create_dir_all(base_path).unwrap();
     let stdout = File::create(base_path.to_owned() + "/mysql-audit-extend.log").unwrap();
     let stderr = File::create(base_path.to_owned() + "/mysql-audit-extend.error").unwrap();
@@ -11,8 +15,8 @@ pub fn daemonize<T: FnOnce()>(task: T, username: String) {
     let daemonize = Daemonize::new()
         .pid_file(base_path.to_owned() + "/mysql-audit-extend.pid")
         .chown_pid_file(true)
-        .working_directory(base_path)
-        .user(username.as_str())
+        .working_directory(base_path.as_str())
+        .user(username)
         .group(1)
         .umask(0o777)
         .stdout(stdout)

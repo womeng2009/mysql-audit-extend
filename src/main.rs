@@ -3,9 +3,8 @@ mod libc_util;
 mod tasks;
 
 fn main() {
-    println!("pkg_name:{}", env!("CARGO_PKG_NAME"));
-    println!("author_name:{}", env!("CARGO_PKG_AUTHORS"));
-
     let username = libc_util::get_current_user();
-    daemon_util::daemonize(tasks::start_backstage_task, username);
+    let pkg_name = env!("CARGO_PKG_NAME");
+    let author_name = env!("CARGO_PKG_AUTHORS");
+    daemon_util::daemonize(tasks::start_backstage_task, username.as_str(), pkg_name, author_name);
 }
