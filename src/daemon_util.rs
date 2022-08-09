@@ -3,13 +3,13 @@ use std::fs;
 use std::fs::File;
 
 pub fn daemonize<T: FnOnce()>(task: T, username: String) {
-    let base_path = "/tmp/seeker/mglog";
+    let base_path = "/tmp/seeker/mysql-audit-extend";
     fs::create_dir_all(base_path).unwrap();
-    let stdout = File::create(base_path.to_owned() + "/mglog.log").unwrap();
-    let stderr = File::create(base_path.to_owned() + "/mglog.error").unwrap();
+    let stdout = File::create(base_path.to_owned() + "/mysql-audit-extend.log").unwrap();
+    let stderr = File::create(base_path.to_owned() + "/mysql-audit-extend.error").unwrap();
 
     let daemonize = Daemonize::new()
-        .pid_file(base_path.to_owned() + "/mglog.pid")
+        .pid_file(base_path.to_owned() + "/mysql-audit-extend.pid")
         .chown_pid_file(true)
         .working_directory(base_path)
         .user(username.as_str())
