@@ -23,7 +23,7 @@ pub fn init_crontab(){
     println!("初始化定时任务");
     let delay_timer = DelayTimerBuilder::default().build();
     let task_instance_chain = delay_timer.insert_task(build_task().unwrap()).unwrap();
-    let task_instance = task_instance_chain.next_with_wait()?;
+    let task_instance = task_instance_chain.next_with_wait().unwrap();
 
     // Cancel running task instances.
     task_instance.cancel_with_wait().expect("取消执行的任务失败");
