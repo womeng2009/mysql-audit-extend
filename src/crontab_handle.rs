@@ -26,11 +26,7 @@ pub fn init_crontab(){
     let task_instance = task_instance_chain.next_with_wait().unwrap();
 
     // Cancel running task instances.
-    task_instance.cancel_with_wait().expect("取消执行的任务失败");
-
-    // Remove task which id is 1.
-    delay_timer.remove_task(1).expect("移除任务失败");
-
+    println!("state:{}", task_instance.get_state());
     // No new tasks are accepted; running tasks are not affected.
     delay_timer.stop_delay_timer().expect("停止接收新任务失败");
 }
