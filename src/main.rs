@@ -3,7 +3,6 @@ mod libc_util;
 mod tasks;
 
 fn main() {
-    env!("CARGO_PKG_AUTHORS").
     println!("pkg_name:{}", env!("CARGO_PKG_NAME"));
     println!("author_name:{}", env!("CARGO_PKG_AUTHORS"));
 
