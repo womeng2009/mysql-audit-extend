@@ -3,16 +3,16 @@ use std::thread::sleep;
 use std::time::Duration;
 use rcron::{Job, JobScheduler};
 
-fn mysql_audit_log_rotate(sched: &mut JobScheduler) {
-    sched.add(Job::new("1/10 * * * * *".parse().unwrap(), || {
-        println!("执行日志轮转任务!");
+fn mysql_audit_log_rotate(sched: &mut JobScheduler, path: &str) {
+    sched.add(Job::new("1/10 * * * * *".parse()?,  || {
+        println!("执行日志轮转任务! path:{}", path);
     }));
 }
 
-pub fn start_backstage_task() {
+pub fn start_backstage_task(path: &str) {
     let mut sched = JobScheduler::new();
 
-    mysql_audit_log_rotate(sched.borrow_mut());
+    mysql_audit_log_rotate(sched.borrow_mut(), path);
 
     loop {
         sched.tick();
