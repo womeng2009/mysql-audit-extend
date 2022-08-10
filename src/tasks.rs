@@ -32,11 +32,10 @@ fn mysql_audit_log_rotate(sched: &mut JobScheduler, path: String, max_size: u32,
 
                 let file_path = Path::new(path.as_str());
                 let origin_file_name = file_path.file_name().unwrap().to_str().unwrap().to_string();
-                let origin_name = origin_file_name
+                let sv: Vec<&str> = origin_file_name
                     .split(".")
-                    .collect()
-                    .get(0)
-                    .unwrap();
+                    .collect();
+                let origin_name = sv[0];
                 println!("origin_file_name:{}", origin_name);
 
                 let parent_path = file_path.parent().unwrap();
