@@ -2,6 +2,8 @@ mod daemon_util;
 mod libc_util;
 mod tasks;
 
+use clap::Parser;
+
 /// 程序控制参数
 #[derive(Parser, Debug)]
 #[clap(author, version, about, long_about = None)]
