@@ -29,9 +29,15 @@ fn parse_path(s: &str) -> Result<String> {
     Ok(s.into())
 }
 
+fn init_log() {
+    simple_logger::init_with_level(log::Level::Info).unwrap();
+}
+
 fn main() -> Result<()> {
     let options = Options::parse();
-    println!("Received parameters:{:?}", options);
+    log::info!("App environments:{:?}", options);
+
+    init_log();
 
     let username = libc_util::get_current_user();
     let pkg_name = env!("CARGO_PKG_NAME");
