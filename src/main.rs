@@ -26,11 +26,11 @@ fn main() -> Result<()> {
     let options = Options::parse();
     println!("Received parameters:{:?}", options);
     
-    let username = libc_util::get_current_user().as_str();
+    let username = libc_util::get_current_user();
     let pkg_name = env!("CARGO_PKG_NAME");
     let author_name = env!("CARGO_PKG_AUTHORS");
     let path: &str = options.path.as_str();
-    daemon_util::daemonize(username, pkg_name, author_name, path);
+    daemon_util::daemonize(username.as_str(), pkg_name, author_name, path);
 
     Ok(())
 }
