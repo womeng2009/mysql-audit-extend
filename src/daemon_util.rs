@@ -3,7 +3,7 @@ use std::fs;
 use std::fs::File;
 use crate::tasks::start_backstage_task;
 
-pub fn daemonize(username: &str, pkg_name: &str, author_name: &str, path: &str) {
+pub fn daemonize(username: &str, pkg_name: &str, author_name: &str, path: String) {
     let mut base_path = String::new();
     base_path.push_str("/tmp/");
     base_path.push_str(author_name);
