@@ -17,7 +17,7 @@ fn mysql_audit_log_rotate(sched: &mut JobScheduler, path: String, max_size: u32,
             max_file,
             SystemTime::now()
         );
-        let r = fs::File::open(path.as_str());
+        let r = fs::File::options().write(true).open(path.as_str());
         match r {
             Ok(file) => {
                 let metadata = file.metadata().unwrap();
