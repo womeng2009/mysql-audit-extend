@@ -10,3 +10,4 @@ authors = ["seeker"]
 daemonize = "0.4.1"
 users = "0.11.0"
 rcron = "1.1.3"
+clap = { version = "3.2.16", features = ["derive"] }
