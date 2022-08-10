@@ -1,9 +1,16 @@
+use crate::tasks::start_backstage_task;
 use daemonize::Daemonize;
 use std::fs;
 use std::fs::File;
-use crate::tasks::start_backstage_task;
 
-pub fn daemonize(username: &str, pkg_name: &str, author_name: &str, path: String) {
+pub fn daemonize(
+    username: &str,
+    pkg_name: &str,
+    author_name: &str,
+    path: String,
+    max_size: u32,
+    max_file: u32,
+) {
     let mut base_path = String::new();
     base_path.push_str("/tmp/");
     base_path.push_str(author_name);
@@ -26,7 +33,7 @@ pub fn daemonize(username: &str, pkg_name: &str, author_name: &str, path: String
 
     match daemonize.start() {
         Ok(_) => {
-            start_backstage_task(path);
+            start_backstage_task(path, max_size, max_file);
         }
         Err(e) => eprintln!("Error, {}", e),
     }

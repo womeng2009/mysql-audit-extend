@@ -1,27 +1,32 @@
+use chrono::{DateTime, Local, TimeZone, Utc};
+use rcron::{Job, JobScheduler};
 use std::borrow::BorrowMut;
 use std::thread::sleep;
 use std::time::{Duration, SystemTime};
-use chrono::{DateTime, Local, Utc};
-use rcron::{Job, JobScheduler};
 
-fn mysql_audit_log_rotate(sched: &mut JobScheduler, path: String) {
-    sched.add(Job::new("1/10 38 8 * * *".parse().unwrap(),  move || {
-        let utc: DateTime<Utc> = Utc::now();       // e.g. `2014-11-28T12:45:59.324310806Z`
-        let local: DateTime<Local> = Local::now();
+fn mysql_audit_log_rotate(sched: &mut JobScheduler, path: String, max_size: u32, max_file: u32) {
+    // utc time
+    sched.add(Job::new("1/10 * * * * *".parse().unwrap(), move || {
         println!("utc:{}", utc);
         println!("local:{}", local);
-        println!("执行日志轮转任务! path:{}, time:{:?}", path, SystemTime::now());
+        println!(
+            "执行日志轮转任务! path:{}, max_size:{}, max_file:{}, time:{:?}",
+            path,
+            max_size,
+            max_file,
+            SystemTime::now()
+        );
     }));
 }
 
-pub fn start_backstage_task(path: String) {
+pub fn start_backstage_task(path: String, max_size: u32, max_file: u32) {
     let mut sched = JobScheduler::new();
 
-    mysql_audit_log_rotate(sched.borrow_mut(), path);
+    mysql_audit_log_rotate(sched.borrow_mut(), path, max_size, max_file);
 
     loop {
         sched.tick();
 
-        sleep(Duration::from_secs(1));
+        sleep(Duration::from_millis(500));
     }
 }
