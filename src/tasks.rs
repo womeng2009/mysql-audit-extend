@@ -2,7 +2,6 @@ use chrono::{DateTime, Local};
 use rcron::{Job, JobScheduler};
 use rust_decimal::Decimal;
 use std::borrow::BorrowMut;
-use std::cmp::max;
 use std::fs;
 use std::path::Path;
 use std::thread::sleep;
