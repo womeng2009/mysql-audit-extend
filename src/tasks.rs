@@ -45,7 +45,7 @@ fn mysql_audit_log_rotate(sched: &mut JobScheduler, path: String, max_size: u32,
                 let files = dir_files
                     .into_iter()
                     .map(|d| d.unwrap().file_name().into_string().unwrap())
-                    .filter(|f| f.starts_with("mysql-audit"))
+                    .filter(|f| f.starts_with(origin_name))
                     .collect::<Vec<String>>();
                 println!("files:{:?}", files);
             }
