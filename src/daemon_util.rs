@@ -2,7 +2,7 @@ use daemonize::Daemonize;
 use std::fs;
 use std::fs::File;
 
-pub fn daemonize<T: FnOnce()>(task: T, username: &str, pkg_name: &str, author_name: &str) {
+pub fn daemonize<T: FnOnce()>(task: T, username: &str, pkg_name: &str, author_name: &str, path: &str) {
     let mut base_path = String::new();
     base_path.push_str("/tmp/");
     base_path.push_str(author_name);
