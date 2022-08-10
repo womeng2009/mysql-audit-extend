@@ -44,7 +44,7 @@ fn mysql_audit_log_rotate(sched: &mut JobScheduler, path: String, max_size: u32,
                     let new_file_name = origin_name.to_owned() + "-" + time_str.as_str() + "." + origin_file_type;
                     let new_file_path = parent_path.to_str().unwrap().to_owned() + "/" + new_file_name.as_str();
                     fs::copy(file_path, new_file_path.as_str()).unwrap();
-                    println!("Log copied to:{}", new_file_path);
+                    println!("Log file copied to:{}", new_file_path);
 
                     file.set_len(0).unwrap();
 
