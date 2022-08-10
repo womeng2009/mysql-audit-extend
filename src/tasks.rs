@@ -5,7 +5,7 @@ use chrono::{DateTime, Local, Utc};
 use rcron::{Job, JobScheduler};
 
 fn mysql_audit_log_rotate(sched: &mut JobScheduler, path: String) {
-    sched.add(Job::new("1/10 * * * * *".parse().unwrap(),  move || {
+    sched.add(Job::new("1/10 38 8 * * *".parse().unwrap(),  move || {
         let utc: DateTime<Utc> = Utc::now();       // e.g. `2014-11-28T12:45:59.324310806Z`
         let local: DateTime<Local> = Local::now();
         println!("utc:{}", utc);
