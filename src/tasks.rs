@@ -1,4 +1,4 @@
-use chrono::{DateTime, Local, TimeZone, Utc};
+use chrono::{DateTime, Local, Utc};
 use rcron::{Job, JobScheduler};
 use std::borrow::BorrowMut;
 use std::thread::sleep;
