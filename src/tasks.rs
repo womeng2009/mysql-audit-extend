@@ -35,11 +35,11 @@ fn mysql_audit_log_rotate(sched: &mut JobScheduler, path: String, max_size: u32,
                 println!("parent_path:{}", parent_path.to_str().unwrap());
 
                 let dir_files = fs::read_dir(parent_path).unwrap();
-                for dir in dir_files {
-                    let file_name = dir.unwrap().file_name();
-                    println!("file_name:{:?}", file_name);
-                }
-
+                let files = dir_files.into_iter()
+                    .map(|d| d.unwrap().file_name().into_string().unwrap())
+                    .filter(|f| f.starts_with("mysql-audit"))
+                    .collect::<Vec<String>>();
+                println!("files:{:?}", files);
             }
             Err(e) => {
                 eprintln!("Read file failed[{}]：{}", path.as_str(), e.to_string());
