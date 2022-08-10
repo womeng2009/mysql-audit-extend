@@ -1,6 +1,8 @@
 use chrono::{DateTime, Local, Utc};
 use rcron::{Job, JobScheduler};
 use std::borrow::BorrowMut;
+use std::fs;
+use std::os::windows::fs::MetadataExt;
 use std::thread::sleep;
 use std::time::{Duration, SystemTime};
 
@@ -18,6 +20,16 @@ fn mysql_audit_log_rotate(sched: &mut JobScheduler, path: String, max_size: u32,
             max_file,
             SystemTime::now()
         );
+        let r = fs::File::open(path.as_str());
+        match r {
+            Ok(file) => {
+                let file_size = file.metadata().unwrap().file_size();
+                println!("file_size:{}", file_size);
+            }
+            Err(e) => {
+                eprintln!("Read file failed[{}]：{}", path.as_str(), e.to_string());
+            }
+        }
     }));
 }
 
