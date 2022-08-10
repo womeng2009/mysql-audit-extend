@@ -13,8 +13,6 @@ fn mysql_audit_log_rotate(sched: &mut JobScheduler, path: String, max_size: u32,
     sched.add(Job::new("1/10 * * * * *".parse().unwrap(), move || {
         let utc: DateTime<Utc> = Utc::now();
 
-        println!("utc:{}", utc);
-        println!("local:{}", local);
         println!(
             "执行日志轮转任务! path:{}, max_size:{}, max_file:{}, time:{:?}",
             path,
