@@ -28,10 +28,9 @@ fn mysql_audit_log_rotate(sched: &mut JobScheduler, path: String, max_size: u32,
                 if file_size >= file_max_size {
                     println!("The file size reaches the split standard:{:?}M", file_size);
                     let file_path = Path::new(path.as_str());
-                    let origin_file_name = file_path.file_name().unwrap().to_str().unwrap().to_string();
-                    let sv: Vec<&str> = origin_file_name
-                        .split(".")
-                        .collect();
+                    let origin_file_name =
+                        file_path.file_name().unwrap().to_str().unwrap().to_string();
+                    let sv: Vec<&str> = origin_file_name.split(".").collect();
                     let origin_name = sv[0];
                     let origin_file_type = sv[1];
                     println!("origin_name:{}", origin_name);
@@ -41,8 +40,10 @@ fn mysql_audit_log_rotate(sched: &mut JobScheduler, path: String, max_size: u32,
 
                     let local: DateTime<Local> = Local::now();
                     let time_str = local.format("%Y%m%d%H%M%S").to_string();
-                    let new_file_name = origin_name.to_owned() + "-" + time_str.as_str() + "." + origin_file_type;
-                    let new_file_path = parent_path.to_str().unwrap().to_owned() + "/" + new_file_name.as_str();
+                    let new_file_name =
+                        origin_name.to_owned() + "-" + time_str.as_str() + "." + origin_file_type;
+                    let new_file_path =
+                        parent_path.to_str().unwrap().to_owned() + "/" + new_file_name.as_str();
                     fs::copy(file_path, new_file_path.as_str()).unwrap();
                     println!("Log file copied to:{}", new_file_path);
 
@@ -59,8 +60,10 @@ fn mysql_audit_log_rotate(sched: &mut JobScheduler, path: String, max_size: u32,
                         println!("The number of files exceeds the limit,start cleaning...");
                         for i in 0..(files.len() - max_file as usize) {
                             let item_file_name = files.get(i).unwrap();
-                            let item_path = parent_path.to_str().unwrap().to_owned() + "/" + item_file_name;
-                            fs::remove_file(item_path.as_str()).expect("Failed to clean up redundant files");
+                            let item_path =
+                                parent_path.to_str().unwrap().to_owned() + "/" + item_file_name;
+                            fs::remove_file(item_path.as_str())
+                                .expect("Failed to clean up redundant files");
                             println!("Delete file {}", item_path);
                         }
                     }
