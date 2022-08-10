@@ -17,11 +17,11 @@ pub fn daemonize(
     base_path.push_str("/");
     base_path.push_str(pkg_name);
     fs::create_dir_all(base_path.as_str()).unwrap();
-    let stdout = File::create(base_path.as_str().to_owned() + "/mysql-audit-extend.log").unwrap();
-    let stderr = File::create(base_path.as_str().to_owned() + "/mysql-audit-extend.error").unwrap();
+    let stdout = File::create(base_path.as_str().to_owned() + "/log.log").unwrap();
+    let stderr = File::create(base_path.as_str().to_owned() + "/log.error").unwrap();
 
     let daemonize = Daemonize::new()
-        .pid_file(base_path.to_owned() + "/mysql-audit-extend.pid")
+        .pid_file(base_path.to_owned() + "/app.pid")
         .chown_pid_file(true)
         .working_directory(base_path.as_str())
         .user(username)
