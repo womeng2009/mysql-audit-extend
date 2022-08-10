@@ -26,8 +26,7 @@ fn mysql_audit_log_rotate(sched: &mut JobScheduler, path: String, max_size: u32,
                 let metadata = file.metadata().unwrap();
                 let file_len = Decimal::from(metadata.len());
                 let cf = Decimal::from(1024);
-                let mut file_size = file_len / cf / cf;
-                file_size.set_scale(0).unwrap();
+                let file_size = (file_len / cf / cf).round_dp(0);
                 println!("file_size:{:?}M", file_size);
             }
             Err(e) => {
