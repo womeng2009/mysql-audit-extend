@@ -43,16 +43,25 @@ fn mysql_audit_log_rotate(sched: &mut JobScheduler, path: String, max_size: u32,
                     let time_str = local.format("%Y%m%d%H%M%S").to_string();
                     let new_file_name = origin_name.to_owned() + "-" + time_str.as_str() + "." + origin_file_type;
                     let new_file_path = parent_path.to_str().unwrap().to_owned() + "/" + new_file_name.as_str();
-                    println!("new file path:{}", new_file_path);
+                    fs::copy(file_path, new_file_path.as_str()).unwrap();
+                    println!("Log copied to:{}", new_file_path);
+
+                    file.set_len(0).unwrap();
 
                     let dir_files = fs::read_dir(parent_path).unwrap();
-                    let files = dir_files
+                    let mut files = dir_files
                         .into_iter()
                         .map(|d| d.unwrap().file_name().into_string().unwrap())
                         .filter(|f| f.starts_with(origin_name))
                         .collect::<Vec<String>>();
-
-                    println!("files:{:?}", files);
+                    files.sort();
+                    if files.len() > max_file as usize {
+                        println!("The number of files exceeds the limit,start cleaning...");
+                        for i in 0..(files.len() - max_file) {
+                            let item_path = files.get(i).unwrap();
+                            fs::remove_file(item_path.as_str()).expect("Failed to clean up redundant files");
+                        }
+                    }
                 }
             }
             Err(e) => {
