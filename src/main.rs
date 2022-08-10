@@ -7,8 +7,6 @@ use clap::Parser;
 /// An extension tool of mysql-audit, which provides functions such as log rotation and log cleaning.
 #[derive(Parser, Debug)]
 #[clap(version = "1.0", author = "Seeker <womeng209@qq.com>")]
-#[clap(setting = AppSettings::ColoredHelp)]
-#[clap(author, version, about, long_about = None)]
 struct Options {
 
     /// Absolute path to log file
