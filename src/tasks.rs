@@ -36,7 +36,7 @@ fn mysql_audit_log_rotate(sched: &mut JobScheduler, path: String, max_size: u32,
                     .split(".")
                     .collect();
                 let origin_name = sv[0];
-                println!("origin_file_name:{}", origin_name);
+                println!("origin_name:{}", origin_name);
 
                 let parent_path = file_path.parent().unwrap();
                 println!("parent_path:{}", parent_path.to_str().unwrap());
