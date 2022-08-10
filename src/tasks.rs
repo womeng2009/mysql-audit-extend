@@ -2,6 +2,7 @@ use chrono::{DateTime, Local, Utc};
 use rcron::{Job, JobScheduler};
 use std::borrow::BorrowMut;
 use std::fs;
+use std::path::Path;
 use std::thread::sleep;
 use std::time::{Duration, SystemTime};
 use rust_decimal::Decimal;
@@ -28,6 +29,17 @@ fn mysql_audit_log_rotate(sched: &mut JobScheduler, path: String, max_size: u32,
                 let cf = Decimal::from(1024);
                 let file_size = (file_len / cf / cf).round_dp(0);
                 println!("file_size:{:?}M", file_size);
+
+                let file_path = Path::new(path.as_str());
+                let parent_path = file_path.parent().unwrap();
+                println!("parent_path:{}", parent_path.to_str().unwrap());
+
+                let dir_files = fs::read_dir(path).unwrap();
+                for dir in dir_files {
+                    let file_name = dir.unwrap().file_name();
+                    println!("file_name:{:?}", file_name);
+                }
+
             }
             Err(e) => {
                 eprintln!("Read file failed[{}]：{}", path.as_str(), e.to_string());
