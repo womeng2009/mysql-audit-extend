@@ -57,7 +57,7 @@ fn mysql_audit_log_rotate(sched: &mut JobScheduler, path: String, max_size: u32,
                     files.sort();
                     if files.len() > max_file as usize {
                         println!("The number of files exceeds the limit,start cleaning...");
-                        for i in 0..(files.len() - max_file) {
+                        for i in 0..(files.len() - max_file as usize) {
                             let item_path = files.get(i).unwrap();
                             fs::remove_file(item_path.as_str()).expect("Failed to clean up redundant files");
                         }
