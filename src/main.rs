@@ -30,7 +30,7 @@ fn main() -> Result<()> {
     let pkg_name = env!("CARGO_PKG_NAME");
     let author_name = env!("CARGO_PKG_AUTHORS");
     let path: &str = options.path.as_str();
-    daemon_util::daemonize(tasks::start_backstage_task, username.as_str(), pkg_name, author_name, path);
+    daemon_util::daemonize(tasks::start_backstage_task(path), username.as_str(), pkg_name, author_name);
 
     Ok(())
 }

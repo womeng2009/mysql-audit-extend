@@ -5,8 +5,8 @@ use rcron::{Job, JobScheduler};
 
 fn mysql_audit_log_rotate(sched: &mut JobScheduler, path: &str) {
     sched.add(Job::new("1/10 * * * * *".parse().unwrap(),  || {
-        let path_ref = path.clone();
-        println!("执行日志轮转任务! path:{}", path_ref);
+        // let path_ref = path.clone();
+        println!("执行日志轮转任务! path:");
     }));
 }
 
