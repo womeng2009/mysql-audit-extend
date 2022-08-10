@@ -6,7 +6,7 @@ use clap::Parser;
 
 /// 程序控制参数
 #[derive(Parser, Debug)]
-#[clap(author, version, about, long_about = None)]
+#[clap(author, version, about, long_about = None, help="test")]
 struct Options {
     /// 日志文件绝对路径
     #[clap(short, long, value_parser)]
