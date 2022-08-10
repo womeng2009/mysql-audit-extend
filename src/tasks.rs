@@ -26,11 +26,7 @@ fn mysql_audit_log_rotate(sched: &mut JobScheduler, path: String, max_size: u32,
                     let sv: Vec<&str> = origin_file_name.split(".").collect();
                     let origin_name = sv[0];
                     let origin_file_type = sv[1];
-                    log::info!("origin_name:{}", origin_name);
-
                     let parent_path = file_path.parent().unwrap();
-                    log::info!("parent_path:{}", parent_path.to_str().unwrap());
-
                     let local: DateTime<Local> = Local::now();
                     let time_str = local.format("%Y%m%d%H%M%S").to_string();
                     let new_file_name =
