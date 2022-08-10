@@ -15,11 +15,11 @@ struct Options {
     path: String,
 
     /// Maximum file size, Unit: MB.
-    #[clap(short = "ms", long, value_parser, default_value_t = 10)]
+    #[clap(short = 'm', long, value_parser, default_value_t = 10)]
     max_size: u32,
 
     /// Maximum number of files to keep
-    #[clap(short = "mf", long, value_parser, default_value_t = 10)]
+    #[clap(short = 'f', long, value_parser, default_value_t = 10)]
     max_file: u32,
 }
 
