@@ -8,7 +8,7 @@ use anyhow::Result;
 
 /// An extension tool of mysql-audit, which provides functions such as log rotation and log cleaning.
 #[derive(Parser, Debug)]
-#[clap(version = "1.0", author = "Seeker <womeng209@qq.com>")]
+#[clap(version, author = "Seeker <womeng209@qq.com>")]
 struct Options {
 
     /// Absolute path to log file
