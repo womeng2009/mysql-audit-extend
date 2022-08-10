@@ -11,7 +11,7 @@ use std::fs;
 #[clap(version, author = "Seeker <womeng209@qq.com>")]
 struct Options {
     /// Absolute path to log file
-    #[clap(short, long, parse(try_from_str = parse_path))]
+    #[clap(short, long, parse(try_from_str = parse_path), default_value_t = String::from("/var/lib/mysql/mysql-audit.json"))]
     path: String,
 
     /// Maximum file size, Unit: MB.
