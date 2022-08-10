@@ -2,7 +2,9 @@ mod daemon_util;
 mod libc_util;
 mod tasks;
 
+use std::fs;
 use clap::Parser;
+use anyhow::Result;
 
 /// An extension tool of mysql-audit, which provides functions such as log rotation and log cleaning.
 #[derive(Parser, Debug)]
@@ -10,11 +12,17 @@ use clap::Parser;
 struct Options {
 
     /// Absolute path to log file
-    #[clap(short, long, value_parser)]
+    #[clap(short, long, parse(try_from_str = parse_path))]
     path: String,
 }
 
-fn main() {
+/// 文件路径检查
+fn parse_path(s: &str) -> Result<String> {
+    fs::File::open(s)?;
+    Ok(s.into())
+}
+
+fn main() -> Result<()> {
     let options = Options::parse();
     println!("Received parameters:{:?}", options);
     
@@ -22,4 +30,6 @@ fn main() {
     // let pkg_name = env!("CARGO_PKG_NAME");
     // let author_name = env!("CARGO_PKG_AUTHORS");
     // daemon_util::daemonize(tasks::start_backstage_task, username.as_str(), pkg_name, author_name);
+
+    Ok(())
 }
