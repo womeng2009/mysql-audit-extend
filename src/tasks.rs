@@ -23,7 +23,7 @@ fn mysql_audit_log_rotate(sched: &mut JobScheduler, path: String, max_size: u32,
         match r {
             Ok(file) => {
                 let metadata = file.metadata().unwrap();
-                println!("metadata:{:?}", metadata);
+                println!("file len:{:?}", metadata.len());
             }
             Err(e) => {
                 eprintln!("Read file failed[{}]：{}", path.as_str(), e.to_string());
