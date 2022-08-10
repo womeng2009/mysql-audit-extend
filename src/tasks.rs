@@ -4,6 +4,7 @@ use std::borrow::BorrowMut;
 use std::fs;
 use std::thread::sleep;
 use std::time::{Duration, SystemTime};
+use rust_decimal::Decimal;
 
 fn mysql_audit_log_rotate(sched: &mut JobScheduler, path: String, max_size: u32, max_file: u32) {
     // utc time
@@ -23,8 +24,10 @@ fn mysql_audit_log_rotate(sched: &mut JobScheduler, path: String, max_size: u32,
         match r {
             Ok(file) => {
                 let metadata = file.metadata().unwrap();
-                let file_len = metadata.len();
-                let file_size = file_len / 1024 / 1024;
+                let file_len = Decimal::from(metadata.len());
+                let cf = Decimal::from(1024);
+                let mut file_size = (file_len / cf / cf);
+                file_size.set_scale(0).unwrap();
                 println!("file_size:{:?}M", file_size);
             }
             Err(e) => {
