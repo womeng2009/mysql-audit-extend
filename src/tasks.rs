@@ -5,7 +5,7 @@ use std::borrow::BorrowMut;
 use std::fs;
 use std::path::Path;
 use std::thread::sleep;
-use std::time::{Duration, SystemTime};
+use std::time::{Duration};
 
 fn mysql_audit_log_rotate(sched: &mut JobScheduler, path: String, max_size: u32, max_file: u32) {
     // utc time
