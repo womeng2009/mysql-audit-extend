@@ -2,7 +2,7 @@
 name = "mysql-audit-extend"
 version = "0.1.0"
 edition = "2021"
-authors = ["seeker"]
+authors = ["seeker <womeng209@qq.com>"]
 description = "An extension tool of mysql-audit, which provides functions such as log rotation and log cleaning."
 license = "MIT"
 
