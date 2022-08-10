@@ -25,7 +25,7 @@ pub fn daemonize<T: FnOnce()>(task: T, username: &str, pkg_name: &str, author_na
 
     match daemonize.start() {
         Ok(_) => {
-            task();
+            task(path);
         }
         Err(e) => eprintln!("Error, {}", e),
     }
