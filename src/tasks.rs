@@ -7,6 +7,8 @@ use std::time::{Duration, SystemTime};
 fn mysql_audit_log_rotate(sched: &mut JobScheduler, path: String, max_size: u32, max_file: u32) {
     // utc time
     sched.add(Job::new("1/10 * * * * *".parse().unwrap(), move || {
+        let utc: DateTime<Utc> = Utc::now();
+        let local: DateTime<Local> = Local::now();
         println!("utc:{}", utc);
         println!("local:{}", local);
         println!(
