@@ -1,6 +1,6 @@
 [package]
 name = "mysql-audit-extend"
-version = "0.1.0"
+version = "0.2.0"
 edition = "2021"
 authors = ["seeker"]
 description = "An extension tool of mysql-audit, which provides functions such as log rotation and log cleaning."
