@@ -1,11 +1,11 @@
 [package]
 name = "mysql-audit-extend"
-version = "0.2.4"
+version = "0.2.5"
 edition = "2021"
 authors = ["seeker"]
 description = "An extension tool of mysql-audit, which provides functions such as log rotation and log cleaning."
 license = "MIT"
-documentation = "https://docs.rs/crate/mysql-audit-extend/0.2.4"
+documentation = "https://docs.rs/crate/mysql-audit-extend/0.2.5"
 repository = "https://gitee.com/seeker_rs/mysql-audit-extend"
 
 # See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
