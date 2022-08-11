@@ -9,6 +9,11 @@ The extension of mysql-audit, the mysql audit plugin for mcafee, enhances the pl
 ```shell
 cargo install mysql-audit-extend
 ```
+or
+```shell
+wget https://gitee.com/seeker_rs/mysql-audit-extend/releases/download/release-0.2.4/mysql-audit-extend
+chmod 775 mysql-audit-extend
+```
 
 #### 3.Run
 ```shell
