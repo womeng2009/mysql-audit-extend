@@ -3,6 +3,7 @@ use daemonize::Daemonize;
 use std::fs;
 use std::fs::File;
 
+/// Linux background running
 pub fn daemonize(
     username: &str,
     pkg_name: &str,
