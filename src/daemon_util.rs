@@ -7,6 +7,7 @@ use std::fs;
 #[cfg(target_family = "unix")]
 use std::fs::File;
 
+/// Linux background running
 #[cfg(target_family = "unix")]
 pub fn daemonize(
     username: &str,

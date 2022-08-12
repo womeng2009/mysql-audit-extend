@@ -26,16 +26,18 @@ struct Options {
     max_file: u32,
 }
 
-/// 文件路径检查
+/// File path check
 fn parse_path(s: &str) -> Result<String> {
     fs::File::open(s)?;
     Ok(s.into())
 }
 
+/// Initialize the log component
 fn init_log() {
     simple_logger::init_with_level(log::Level::Info).unwrap();
 }
 
+/// main function
 fn main() -> Result<()> {
     let options = Options::parse();
     log::info!("App environments:{:?}", options);

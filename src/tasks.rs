@@ -7,8 +7,8 @@ use std::path::Path;
 use std::thread::sleep;
 use std::time::{Duration};
 
-fn mysql_audit_log_rotate(sched: &mut JobScheduler, path: String, max_size: u32, max_file: u32) {
-    // utc time
+/// Handling mysql audit logs
+fn mysql_audit_log_handle(sched: &mut JobScheduler, path: String, max_size: u32, max_file: u32) {
     sched.add(Job::new("1/10 * * * * *".parse().unwrap(), move || {
         let r = fs::File::options().write(true).open(path.as_str());
         match r {
@@ -16,7 +16,7 @@ fn mysql_audit_log_rotate(sched: &mut JobScheduler, path: String, max_size: u32,
                 let metadata = file.metadata().unwrap();
                 let file_len = Decimal::from(metadata.len());
                 let cf = Decimal::from(1024);
-                let file_size = (file_len / cf / cf).round_dp(0);
+                let file_size = (file_len / cf / cf).round_dp(2);
                 let file_max_size = Decimal::from(max_size);
                 if file_size >= file_max_size {
                     log::info!("The file size reaches the split standard:{:?}M", file_size);
@@ -65,10 +65,11 @@ fn mysql_audit_log_rotate(sched: &mut JobScheduler, path: String, max_size: u32,
     }));
 }
 
+/// Scheduled task control
 pub fn start_backstage_task(path: String, max_size: u32, max_file: u32) {
     let mut sched = JobScheduler::new();
 
-    mysql_audit_log_rotate(sched.borrow_mut(), path, max_size, max_file);
+    mysql_audit_log_handle(sched.borrow_mut(), path, max_size, max_file);
 
     loop {
         sched.tick();

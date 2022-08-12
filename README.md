@@ -11,7 +11,7 @@ cargo install mysql-audit-extend
 ```
 or
 ```shell
-wget https://gitee.com/seeker_rs/mysql-audit-extend/releases/download/release-0.2.4/mysql-audit-extend
+wget https://gitee.com/seeker_rs/mysql-audit-extend/releases/download/release-0.2.5/mysql-audit-extend
 chmod 775 mysql-audit-extend
 ```
 
