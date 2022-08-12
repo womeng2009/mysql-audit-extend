@@ -1,10 +1,13 @@
+#[cfg(target_family = "unix")]
 mod daemon_util;
+#[cfg(target_family = "unix")]
 mod libc_util;
 mod tasks;
 
 use anyhow::Result;
 use clap::Parser;
 use std::fs;
+use crate::tasks::start_backstage_task;
 
 /// An extension tool of mysql-audit, which provides functions such as log rotation and log cleaning.
 #[derive(Parser, Debug)]
@@ -39,20 +42,28 @@ fn main() -> Result<()> {
 
     init_log();
 
-    let username = libc_util::get_current_user();
-    let pkg_name = env!("CARGO_PKG_NAME");
-    let author_name = env!("CARGO_PKG_AUTHORS");
     let path: String = options.path;
     let max_size: u32 = options.max_size;
     let max_file: u32 = options.max_file;
-    daemon_util::daemonize(
-        username.as_str(),
-        pkg_name,
-        author_name,
-        path,
-        max_size,
-        max_file,
-    );
+
+    if cfg!(target_family = "unix") {
+        #[cfg(target_family = "unix")]
+        {
+            let username = libc_util::get_current_user();
+            let pkg_name = env!("CARGO_PKG_NAME");
+            let author_name = env!("CARGO_PKG_AUTHORS");
+            daemon_util::daemonize(
+                username.as_str(),
+                pkg_name,
+                author_name,
+                path,
+                max_size,
+                max_file,
+            );
+        }
+    } else {
+        start_backstage_task(path, max_size, max_file);
+    }
 
     Ok(())
 }

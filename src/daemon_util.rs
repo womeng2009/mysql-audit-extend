@@ -1,8 +1,13 @@
+#[cfg(target_family = "unix")]
 use crate::tasks::start_backstage_task;
+#[cfg(target_family = "unix")]
 use daemonize::Daemonize;
+#[cfg(target_family = "unix")]
 use std::fs;
+#[cfg(target_family = "unix")]
 use std::fs::File;
 
+#[cfg(target_family = "unix")]
 pub fn daemonize(
     username: &str,
     pkg_name: &str,
