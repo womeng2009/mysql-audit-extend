@@ -40,7 +40,15 @@ mysql-audit-extend
 mysql-audit-extend -p /var/lib/mysql/mysql-audit.json -m 100 -f 30
 ```
 
-#### 4.Support platform
+#### 4.View run log
+```shell
+# execution log
+tail -f /tmp/seeker/mysql-audit-extend/log.log
+# error log
+tail -f /tmp/seeker/mysql-audit-extend/log.error
+```
+
+#### 5.Support platform
 > Currently only supports Linux operating system.
 
 * Linux
