@@ -17,7 +17,7 @@ anyhow = "1.0.61"
 chrono = "0.4.21"
 rust_decimal = "1.25.0"
 log = "0.4.17"
-simple_logger = "2.2.0"
+simple_logger = { version = "2.2.0", features = ["timestamps"] }
 
 [target.'cfg(unix)'.dependencies]
 daemonize = "0.4.1"

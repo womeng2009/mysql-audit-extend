@@ -4,10 +4,12 @@ mod daemon_util;
 mod libc_util;
 mod tasks;
 
+use crate::tasks::start_backstage_task;
 use anyhow::Result;
 use clap::Parser;
+use log::LevelFilter;
+use simple_logger::SimpleLogger;
 use std::fs;
-use crate::tasks::start_backstage_task;
 
 /// An extension tool of mysql-audit, which provides functions such as log rotation and log cleaning.
 #[derive(Parser, Debug)]
@@ -34,7 +36,11 @@ fn parse_path(s: &str) -> Result<String> {
 
 /// Initialize the log component
 fn init_log() {
-    simple_logger::init_with_level(log::Level::Info).unwrap();
+    SimpleLogger::new()
+        .with_level(LevelFilter::Info)
+        .with_local_timestamps()
+        .init()
+        .unwrap();
 }
 
 /// main function

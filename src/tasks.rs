@@ -6,7 +6,7 @@ use std::fs;
 use std::path::Path;
 use std::sync::{Arc, Mutex};
 use std::thread::sleep;
-use std::time::{Duration};
+use std::time::Duration;
 
 /// Handling mysql audit logs
 fn mysql_audit_log_handle(sched: &mut JobScheduler, path: String, max_size: u32, max_file: u32) {
@@ -36,8 +36,11 @@ fn mysql_audit_log_handle(sched: &mut JobScheduler, path: String, max_size: u32,
                         let parent_path = file_path.parent().unwrap();
                         let local: DateTime<Local> = Local::now();
                         let time_str = local.format("%Y%m%d%H%M%S").to_string();
-                        let new_file_name =
-                            origin_name.to_owned() + "-" + time_str.as_str() + "." + origin_file_type;
+                        let new_file_name = origin_name.to_owned()
+                            + "-"
+                            + time_str.as_str()
+                            + "."
+                            + origin_file_type;
                         let new_file_path =
                             parent_path.to_str().unwrap().to_owned() + "/" + new_file_name.as_str();
                         fs::copy(file_path, new_file_path.as_str()).unwrap();
