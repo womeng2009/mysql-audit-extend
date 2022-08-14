@@ -12,7 +12,7 @@ use std::time::{Duration};
 fn mysql_audit_log_handle(sched: &mut JobScheduler, path: String, max_size: u32, max_file: u32) {
     let run_flag = Arc::new(Mutex::new(false));
 
-    sched.add(Job::new("1/10 * * * * *".parse().unwrap(), move || {
+    sched.add(Job::new("0/1 * * * * *".parse().unwrap(), move || {
         let run_flag = Arc::clone(&run_flag);
         let mut is_run = run_flag.lock().unwrap();
         if !(*is_run) {
